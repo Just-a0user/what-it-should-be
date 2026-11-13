@@ -27,19 +27,26 @@ Click the button below, or manually add this repo url to Morphe Manager: https:/
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
+> **[v1.0.0-dev.1](https://github.com/Just-a0user/what-it-should-be/releases/tag/v1.0.0-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;4 patches total
+<details open>
+<summary>📦 WhatsApp&nbsp;&nbsp;•&nbsp;&nbsp;4 patches</summary>
+<br>
 
-<!-- Do not modify this section by hand. The patch list is generated when release.yml creates a new release. -->
+**Package name:** `com.whatsapp`
 
-#### A list of the patches will automatically be shown here after the first patches release is created.
+**🎯 Supported versions:**
 
-&nbsp;
+| 2.26.44.90 |
+| :---: |
 
-## 🧑‍💻 Dev usage
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Keep deleted messages](#keep-deleted-messages) | Show messages that were deleted for everyone. Client-side only; already-wiped history cannot be restored. | • Highlight deleted messages |
+| [Remove Meta AI](#remove-meta-ai) | Hides Meta AI on the chats home screen (FAB / pill), related hub entry points, and common feature gates. Does not delete existing Meta AI chats. | • Aggressive hide |
+| [Usage data](#usage-data) | Limit diagnostic and analytics data WhatsApp sends. |  |
+| [View once media](#view-once-media) | Allow reopening and saving view once photos and videos. |  |
 
-- **Make all changes to the `dev` branch.**
-- Build locally with `./gradlew buildAndroid`. The bundle is written to `patches/build/libs/patches-*.mpp`.
-- Use semantic commit messages: `feat:`, `fix:` or `chore:`. Only `feat:` and `fix:` create a release.
-- Do not edit `patches-list.json`, `patches-bundle.json` or `CHANGELOG.md` by hand, `release.yml` updates them.
+</details>
 
 <!-- PATCHES_END -->
 

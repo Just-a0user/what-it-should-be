@@ -1,5 +1,134 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "0.0.0",
-  "patches": []
+  "version": "1.0.0-dev.1",
+  "patches": [
+    {
+      "name": "Keep deleted messages",
+      "description": "Show messages that were deleted for everyone. Client-side only; already-wiped history cannot be restored.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.whatsapp",
+          "name": "WhatsApp",
+          "description": null,
+          "apkFileType": "APK",
+          "appIconColor": "#25D366",
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.26.44.90",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "highlight",
+          "title": "Highlight deleted messages",
+          "description": "Reserved for future UI tinting of kept-deleted rows.",
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": true,
+          "values": null
+        }
+      ]
+    },
+    {
+      "name": "Remove Meta AI",
+      "description": "Hides Meta AI on the chats home screen (FAB / pill), related hub entry points, and common feature gates. Does not delete existing Meta AI chats.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.whatsapp",
+          "name": "WhatsApp",
+          "description": null,
+          "apkFileType": "APK",
+          "appIconColor": "#25D366",
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.26.44.90",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "aggressive",
+          "title": "Aggressive hide",
+          "description": "Also force extra ()Z methods in Meta-AI-anchored classes. May hide unrelated AI experiments; leave off unless the FAB still shows.",
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": false,
+          "values": null
+        }
+      ]
+    },
+    {
+      "name": "Usage data",
+      "description": "Limit diagnostic and analytics data WhatsApp sends.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.whatsapp",
+          "name": "WhatsApp",
+          "description": null,
+          "apkFileType": "APK",
+          "appIconColor": "#25D366",
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.26.44.90",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "View once media",
+      "description": "Allow reopening and saving view once photos and videos.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.whatsapp",
+          "name": "WhatsApp",
+          "description": null,
+          "apkFileType": "APK",
+          "appIconColor": "#25D366",
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.26.44.90",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    }
+  ]
 }
