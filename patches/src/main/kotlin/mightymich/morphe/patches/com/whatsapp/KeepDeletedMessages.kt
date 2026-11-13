@@ -25,7 +25,7 @@ val keepDeletedMessagesPatch = patch(
     name = "Keep deleted messages",
     description = "Show messages that were deleted for everyone. Client-side only; " +
         "already-wiped history cannot be restored.",
-    default = true,
+    default = false,
 ) {
     compatibleWith(WhatsAppCompatibility.WHATSAPP)
 

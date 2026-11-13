@@ -23,7 +23,7 @@ val removeMetaAIPatch = patch(
     name = "Remove Meta AI",
     description = "Hides Meta AI on the chats home screen (FAB / pill), related hub entry " +
         "points, and common feature gates. Does not delete existing Meta AI chats.",
-    default = true,
+    default = false,
 ) {
     compatibleWith(WhatsAppCompatibility.WHATSAPP)
 
