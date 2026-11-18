@@ -3,7 +3,7 @@ group = "mightymich.morphe"
 patches {
     about {
         name = "WhatsApp Patches"
-        description = "Patches for WhatsApp: view once media, keep deleted messages, remove Meta AI, less telemetry"
+        description = "All-in-one patch for WhatsApp 2.26.45.93: login fix, keep deleted messages, view-once unlock, anti-detection, anti-revoke, remove Meta AI, limit telemetry"
         source = "git@github.com:Just-a0user/what-it-should-be.git"
         author = "Just-a0user"
         contact = "na"
