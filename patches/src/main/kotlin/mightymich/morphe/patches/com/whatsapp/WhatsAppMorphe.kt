@@ -570,11 +570,21 @@ val whatsAppMorphePatch = patch(
                     for (method in clazz.methods) {
                         if (AccessFlags.ABSTRACT.isSet(method.accessFlags)) continue
                         if (AccessFlags.NATIVE.isSet(method.accessFlags)) continue
+                        if (method.returnType != "V") continue
                         val impl = method.implementation ?: continue
-                        if (impl.instructions.count() > 150) continue
-                        try {
-                            if (method.returnType == "V") method.returnEarly()
-                        } catch (_: Exception) {}
+                        val count = impl.instructions.count()
+                        if (count < 1 || count > 150) continue
+                        // Only touch methods whose own name suggests the queue-drain
+                        // path — matching the class by a pooled string is not enough,
+                        // since unrelated methods (constructors, field init, logging)
+                        // can share a class with the anchor string and must not be
+                        // no-op'd. Doing so previously caused a startup crash.
+                        val name = method.name.lowercase()
+                        if (!name.contains("revoke") && !name.contains("pending") &&
+                            !name.contains("drain") && !name.contains("flush") &&
+                            !name.contains("queue") && !name.contains("process")
+                        ) continue
+                        try { method.returnEarly() } catch (_: Exception) {}
                     }
                 }
             }
