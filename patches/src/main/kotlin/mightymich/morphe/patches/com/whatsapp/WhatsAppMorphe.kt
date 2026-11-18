@@ -282,6 +282,15 @@ val whatsAppMorphePatch = patch(
                         val impl = method.implementation ?: continue
                         val n = impl.instructions.count()
                         if (n < 3 || n > 200) continue
+                        val mname = method.name.lowercase()
+                        val isRevokeMethod = mname.contains("revoke") ||
+                            mname.contains("delete") ||
+                            mname.contains("process") ||
+                            mname.contains("handle") ||
+                            mname.contains("apply") ||
+                            mname.contains("insert") ||
+                            mname.contains("dispatch")
+                        if (!isRevokeMethod) continue
                         try {
                             when (method.returnType) {
                                 "V" -> method.returnEarly()
@@ -607,6 +616,15 @@ val whatsAppMorphePatch = patch(
                             if (AccessFlags.NATIVE.isSet(method.accessFlags)) continue
                             val impl = method.implementation ?: continue
                             if (impl.instructions.count() > 150) continue
+                            val sname = method.name.lowercase()
+                            val isStatusRevokeMethod = sname.contains("revoke") ||
+                                sname.contains("delete") ||
+                                sname.contains("status") ||
+                                sname.contains("story") ||
+                                sname.contains("process") ||
+                                sname.contains("handle") ||
+                                sname.contains("deliver")
+                            if (!isStatusRevokeMethod) continue
                             try {
                                 when (method.returnType) {
                                     "V" -> method.returnEarly()
