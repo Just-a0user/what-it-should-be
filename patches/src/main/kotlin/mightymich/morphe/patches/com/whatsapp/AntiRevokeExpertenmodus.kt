@@ -143,6 +143,19 @@ val antiRevokeExpertenmodusPatch = patch(
                     val impl = method.implementation ?: continue
                     if (impl.instructions.count() > 150) continue
 
+                    // Require a name that actually looks like queue drain / flush logic.
+                    // Without this filter, pooled obfuscated string classes get gutted.
+                    val name = method.name.lowercase()
+                    val isDrainMethod = name.contains("drain") ||
+                        name.contains("flush") ||
+                        name.contains("process") ||
+                        name.contains("revoke") ||
+                        name.contains("queue") ||
+                        name.contains("pending") ||
+                        name.contains("dispatch")
+
+                    if (!isDrainMethod) continue
+
                     try {
                         when (method.returnType) {
                             "V" -> {
@@ -191,6 +204,17 @@ val antiRevokeExpertenmodusPatch = patch(
                         if (AccessFlags.NATIVE.isSet(method.accessFlags)) continue
                         val impl = method.implementation ?: continue
                         if (impl.instructions.count() > 150) continue
+
+                        val sname = method.name.lowercase()
+                        val isStatusRevokeMethod = sname.contains("revoke") ||
+                            sname.contains("delete") ||
+                            sname.contains("status") ||
+                            sname.contains("story") ||
+                            sname.contains("process") ||
+                            sname.contains("handle") ||
+                            sname.contains("deliver")
+
+                        if (!isStatusRevokeMethod) continue
 
                         try {
                             when (method.returnType) {
