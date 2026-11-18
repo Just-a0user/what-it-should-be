@@ -12,7 +12,7 @@ object WhatsAppCompatibility {
         appIconColor = 0x25D366,
         targets = listOf(
             AppTarget(
-                version = "2.26.44.90",
+                version = "2.26.45.93",
             ),
         ),
     )

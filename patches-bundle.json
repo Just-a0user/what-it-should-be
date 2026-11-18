@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-11-13T22:09:24",
-  "description": "## [1.0.0-dev.2](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2026-11-13)\n\n### 🐛 Bug Fixes\n\n* Disable Remove Meta AI and Keep deleted messages by default ([211b7e9](https://github.com/Just-a0user/what-it-should-be/commit/211b7e98286d6bfd8409b0e5a08b4b1868275b5c))",
-  "download_url": "https://github.com/Just-a0user/what-it-should-be/releases/download/v1.0.0-dev.2/patches-1.0.0-dev.2.mpp",
+  "created_at": "2026-11-18T21:34:50",
+  "description": "## [1.0.1](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.0...v1.0.1) (2026-11-18)\n\n### 🐛 Bug Fixes\n\n* don't no-op every void method in anti-revoke queue-drain scope ([80f04e3](https://github.com/Just-a0user/what-it-should-be/commit/80f04e3ae6b0577ad6baec6e0b1c108c50681bfc))",
+  "download_url": "https://github.com/Just-a0user/what-it-should-be/releases/download/v1.0.1/patches-1.0.1.mpp",
   "signature_download_url": "",
-  "version": "1.0.0-dev.2"
+  "version": "1.0.1"
 }
