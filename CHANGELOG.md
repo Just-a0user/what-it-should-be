@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.2...v1.0.3) (2026-11-18)
+
+### 🐛 Bug Fixes
+
+* add name-filter to unfiltered method loops in WhatsAppMorphe ([585534c](https://github.com/Just-a0user/what-it-should-be/commit/585534c782f268f89c228b849466fdaea56e1b6d))
+
 ## [1.0.2](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.1...v1.0.2) (2026-11-18)
 
 ### 🐛 Bug Fixes
