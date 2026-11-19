@@ -5,6 +5,7 @@ import app.morphe.patcher.patch.classDefByStrings
 import app.morphe.patcher.patch.classDefForEach
 import app.morphe.patcher.patch.mutableClassDefBy
 import app.morphe.patcher.patch.patch
+import app.morphe.patcher.patch.resourcePatch
 import app.morphe.patcher.util.returnEarly
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
@@ -13,6 +14,48 @@ import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.RegisterRangeInstruction
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.iface.reference.StringReference
+import org.w3c.dom.Element
+
+/**
+ * Declares android.permission.FAKE_PACKAGE_SIGNATURE in the manifest.
+ *
+ * microG-RE's signature-spoofing service only serves a spoofed Play Store
+ * signature to apps that actually ask for it via this permission. Without
+ * it, the patched app never shows up in microG-RE's "Gepatchte Apps" /
+ * patched-apps list at all — microG-RE has no idea it exists — and every
+ * downstream signature/cert patch in Login Fix (sections 1, 4, 6 below)
+ * is working against a dead end: there's nothing on the microG side ever
+ * reached, no matter what the client claims locally.
+ *
+ * Bundled with Login Fix via dependsOn() below; disabled by default for the
+ * same reason Login Fix is.
+ */
+@Suppress("unused")
+val loginFixSignatureSpoofPermissionPatch = resourcePatch(
+    name = "Login Fix signature-spoofing permission",
+    description = "Declares android.permission.FAKE_PACKAGE_SIGNATURE so microG-RE " +
+        "recognizes this app and serves it a spoofed Play Store signature. Required for " +
+        "Login Fix Expertenmodus's signature/cert patches to have any effect.",
+    default = false,
+) {
+    compatibleWith(WhatsAppCompatibility.WHATSAPP)
+
+    execute {
+        document("AndroidManifest.xml").use { document ->
+            val manifest = document.documentElement as Element
+            val existing = manifest.getElementsByTagName("uses-permission")
+            for (i in 0 until existing.length) {
+                val el = existing.item(i) as? Element ?: continue
+                if (el.getAttribute("android:name") == "android.permission.FAKE_PACKAGE_SIGNATURE") {
+                    return@use
+                }
+            }
+            val permission = document.createElement("uses-permission")
+            permission.setAttribute("android:name", "android.permission.FAKE_PACKAGE_SIGNATURE")
+            manifest.appendChild(permission)
+        }
+    }
+}
 
 /**
  * Login Fix — Experimental login compatibility patch for re-signed APKs.
@@ -24,6 +67,11 @@ import com.android.tools.smali.dexlib2.iface.reference.StringReference
  * signature-check path can also interact with the GMS auth token flow.
  *
  * Strategy:
+ *  0. Declare android.permission.FAKE_PACKAGE_SIGNATURE in the manifest
+ *     (see loginFixSignatureSpoofPermissionPatch above). Without this,
+ *     microG-RE never recognizes the app as needing a spoofed signature at
+ *     all — it won't even show up in microG-RE's own patched-apps list —
+ *     so none of sections 1/4/6 below had anything to actually reach.
  *  1. No-op APK certificate / package-signature verification methods so the
  *     app accepts its own (patched) signature. (heuristic, own anchors)
  *  2. Force signature-mismatch guards to return success. (heuristic, own anchors)
@@ -70,6 +118,7 @@ val loginFixPatch = patch(
     default = false,
 ) {
     compatibleWith(WhatsAppCompatibility.WHATSAPP)
+    dependsOn(loginFixSignatureSpoofPermissionPatch)
 
     execute {
         // ── 1. APK / certificate signature verification ──────────────────────
