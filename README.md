@@ -27,9 +27,9 @@ Click the button below, or manually add this repo url to Morphe Manager: https:/
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.3](https://github.com/Just-a0user/what-it-should-be/releases/tag/v1.0.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;8 patches total
+> **[v1.0.4](https://github.com/Just-a0user/what-it-should-be/releases/tag/v1.0.4)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
 <details open>
-<summary>📦 WhatsApp&nbsp;&nbsp;•&nbsp;&nbsp;8 patches</summary>
+<summary>📦 WhatsApp&nbsp;&nbsp;•&nbsp;&nbsp;7 patches</summary>
 <br>
 
 **Package name:** `com.whatsapp`
@@ -48,7 +48,6 @@ Click the button below, or manually add this repo url to Morphe Manager: https:/
 | [Remove Meta AI](#remove-meta-ai) | Hides Meta AI on the chats home screen (FAB / pill), related hub entry points, and common feature gates. Does not delete existing Meta AI chats. | • Aggressive hide |
 | [Usage data](#usage-data) | Limit diagnostic and analytics data WhatsApp sends. |  |
 | [View once media](#view-once-media) | Allow reopening and saving view once photos and videos. |  |
-| [WhatsApp Morphe](#whatsapp-morphe) | All-in-one patch: login fix, keep deleted messages, view-once unlock, anti-detection, anti-revoke, remove Meta AI, limit telemetry. | • Login Fix Expertenmodus<br>• Keep deleted messages<br>• View once media<br>• Anti Detector<br>•   ↳ Spoof root detection<br>•   ↳ Spoof Xposed / LSPosed detection<br>•   ↳ Spoof Play Integrity / SafetyNet<br>• Anti Revoke Expertenmodus<br>•   ↳ Block status revokes<br>• Remove Meta AI<br>•   ↳ Aggressive Meta AI hide<br>• Usage data |
 
 </details>
 

@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.3...v1.0.4) (2026-11-19)
+
+### 🐛 Bug Fixes
+
+* remove all-in-one WhatsAppMorphe patch, keep individual patches only ([a9f26de](https://github.com/Just-a0user/what-it-should-be/commit/a9f26de34e108ed8a85961a79ee74670b554cc95))
+
 ## [1.0.3](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.2...v1.0.3) (2026-11-18)
 
 ### 🐛 Bug Fixes
