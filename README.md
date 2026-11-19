@@ -27,7 +27,7 @@ Click the button below, or manually add this repo url to Morphe Manager: https:/
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.5](https://github.com/Just-a0user/what-it-should-be/releases/tag/v1.0.5)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
+> **[v1.1.0](https://github.com/Just-a0user/what-it-should-be/releases/tag/v1.1.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
 <details open>
 <summary>📦 WhatsApp&nbsp;&nbsp;•&nbsp;&nbsp;7 patches</summary>
 <br>

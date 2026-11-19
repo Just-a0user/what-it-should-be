@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.5...v1.1.0) (2026-11-19)
+
+### ✨ New Features
+
+* port signature/GMS-redirect/cert-spoof login fixes from BOPBOP-glitch ([46025c2](https://github.com/Just-a0user/what-it-should-be/commit/46025c25bfae919dc041afe54ed1b44ed59941b8))
+
 ## [1.0.5](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.4...v1.0.5) (2026-11-19)
 
 ### 🐛 Bug Fixes
