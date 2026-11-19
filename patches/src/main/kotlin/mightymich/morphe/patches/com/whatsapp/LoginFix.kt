@@ -30,7 +30,9 @@ import com.android.tools.smali.dexlib2.iface.reference.StringReference
  *  3. No-op Play Store install-source checks that gate registration. (heuristic, own anchors)
  *  4. Bypass local SHA-256 signature-hash string comparisons. (ported)
  *  5. Redirect com.android.vending / com.google.android.gms references to
- *     their microG-RE package equivalents. (ported)
+ *     their microG-RE package equivalents, scoped to Intent.setPackage(...)
+ *     call sites only. (ported, re-scoped after a crash found in v1.1.0 —
+ *     see note below)
  *  6. Spoof the "X-Android-Cert" header sent on auth requests to a known
  *     Google-recognized client cert hash. (ported)
  *
@@ -290,89 +292,76 @@ val loginFixPatch = patch(
         }
 
         // ── 5. microG-RE package redirection ──────────────────────────────────
-        // Ported from the same source. Rewrites literal references to the
-        // real Play Store / GMS package names to the microG-RE equivalents,
-        // so that calls the app makes against "Google Play Services" or
-        // "the Play Store" actually resolve to the installed microG-RE
-        // components instead of a (possibly absent) real Google package.
-        // The GMS rewrite is scoped to Intent.setPackage(...) calls only, to
-        // avoid touching unrelated string comparisons against that package
-        // name (e.g. logging, allow-lists).
+        // Rewrites literal references to the real Play Store / GMS package
+        // names to the microG-RE equivalents, so that Intents the app builds
+        // against "Google Play Services" or "the Play Store" actually
+        // resolve to the installed microG-RE components instead of a
+        // (possibly absent) real Google package.
+        //
+        // BOTH strings are scoped to Intent.setPackage(...) calls only. An
+        // earlier version of this section (v1.1.0) rewrote "com.android.vending"
+        // unconditionally, everywhere it appeared in the whole app, with no
+        // filter at all — that string also shows up in unrelated code
+        // (install-source checks, licensing, crash/ad SDKs, allow-lists), and
+        // blindly rewriting it there caused a crash on launch. Scoping both
+        // strings the same way (like the GMS half already was) removes that
+        // risk entirely while keeping the only use case this section is
+        // actually for: redirecting outgoing Intents.
         run {
+            val redirectTargets = mapOf(
+                "com.android.vending" to "app.revanced.android.vending",
+                "com.google.android.gms" to "app.revanced.android.gms",
+            )
             classDefForEach { def ->
                 for (method in def.methods) {
                     val impl = method.implementation ?: continue
                     val instructions = impl.instructions.toList()
 
-                    // 5a. Global vending (Play Store) redirection.
-                    val vendingMatches = instructions.mapIndexedNotNull { index, instr ->
+                    val matches = instructions.mapIndexedNotNull { index, instr ->
                         if (instr is ReferenceInstruction && instr.reference is StringReference) {
                             val str = (instr.reference as StringReference).string
-                            if (str == "com.android.vending") index else null
+                            val replacement = redirectTargets[str]
+                            if (replacement != null) index to replacement else null
                         } else null
                     }
-                    if (vendingMatches.isNotEmpty()) {
-                        try {
-                            val mutableMethod = mutableClassDefBy(def).methods.first {
-                                it.name == method.name &&
-                                    it.parameterTypes == method.parameterTypes &&
-                                    it.returnType == method.returnType
-                            }
-                            val mImpl = mutableMethod.implementation ?: continue
-                            val mInstrs = mImpl.instructions.toList()
-                            vendingMatches.sortedDescending().forEach { idx ->
-                                val instr = mInstrs.getOrNull(idx) as? OneRegisterInstruction ?: return@forEach
-                                mutableMethod.addInstructions(
-                                    idx + 1,
-                                    "const-string v${instr.registerA}, \"app.revanced.android.vending\"",
-                                )
-                            }
-                        } catch (_: Exception) {
-                        }
-                    }
+                    if (matches.isEmpty()) continue
 
-                    // 5b. Surgical GMS redirection — only where the string feeds
-                    // straight into Intent.setPackage(...), to stay narrow.
-                    val gmsMatches = instructions.mapIndexedNotNull { index, instr ->
-                        if (instr is ReferenceInstruction && instr.reference is StringReference) {
-                            val str = (instr.reference as StringReference).string
-                            if (str == "com.google.android.gms") index else null
-                        } else null
-                    }
-                    if (gmsMatches.isNotEmpty()) {
-                        try {
-                            val mutableMethod = mutableClassDefBy(def).methods.first {
-                                it.name == method.name &&
-                                    it.parameterTypes == method.parameterTypes &&
-                                    it.returnType == method.returnType
-                            }
-                            val mImpl = mutableMethod.implementation ?: continue
-                            val mInstrs = mImpl.instructions.toList()
-                            gmsMatches.sortedDescending().forEach { idx ->
-                                var isSetPackageCall = false
-                                for (i in idx + 1 until mInstrs.size) {
-                                    val next = mInstrs[i]
-                                    if (next is ReferenceInstruction && next.reference is MethodReference) {
-                                        val ref = next.reference as MethodReference
-                                        if (ref.name == "setPackage" &&
-                                            ref.definingClass == "Landroid/content/Intent;"
-                                        ) {
-                                            isSetPackageCall = true
-                                            break
-                                        }
+                    try {
+                        val mutableMethod = mutableClassDefBy(def).methods.first {
+                            it.name == method.name &&
+                                it.parameterTypes == method.parameterTypes &&
+                                it.returnType == method.returnType
+                        }
+                        val mImpl = mutableMethod.implementation ?: continue
+                        val mInstrs = mImpl.instructions.toList()
+
+                        matches.sortedByDescending { it.first }.forEach { (idx, replacement) ->
+                            // Only rewrite where the string feeds straight into
+                            // Intent.setPackage(...) — require that call to show
+                            // up within the next few instructions.
+                            var isSetPackageCall = false
+                            for (i in idx + 1 until minOf(idx + 6, mInstrs.size)) {
+                                val next = mInstrs[i]
+                                if (next is ReferenceInstruction && next.reference is MethodReference) {
+                                    val ref = next.reference as MethodReference
+                                    if (ref.name == "setPackage" &&
+                                        ref.definingClass == "Landroid/content/Intent;"
+                                    ) {
+                                        isSetPackageCall = true
+                                        break
                                     }
                                 }
-                                if (isSetPackageCall) {
-                                    val instr = mInstrs.getOrNull(idx) as? OneRegisterInstruction
-                                        ?: return@forEach
-                                    mutableMethod.addInstructions(
-                                        idx + 1,
-                                        "const-string v${instr.registerA}, \"app.revanced.android.gms\"",
-                                    )
-                                }
                             }
-                        } catch (_: Exception) {
+                            if (!isSetPackageCall) return@forEach
+
+                            val instr = mInstrs.getOrNull(idx) as? OneRegisterInstruction
+                                ?: return@forEach
+                            mutableMethod.addInstructions(
+                                idx + 1,
+                                "const-string v${instr.registerA}, \"$replacement\"",
+                            )
                         }
+                    } catch (_: Exception) {
                     }
                 }
             }
