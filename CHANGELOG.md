@@ -1,3 +1,9 @@
+## [1.1.2](https://github.com/Just-a0user/what-it-should-be/compare/v1.1.1...v1.1.2) (2026-11-19)
+
+### 🐛 Bug Fixes
+
+* declare FAKE_PACKAGE_SIGNATURE permission for microG-RE signature spoofing ([7d807a0](https://github.com/Just-a0user/what-it-should-be/commit/7d807a01824901168c65a03367d257342131ebe7))
+
 ## [1.1.1](https://github.com/Just-a0user/what-it-should-be/compare/v1.1.0...v1.1.1) (2026-11-19)
 
 ### 🐛 Bug Fixes

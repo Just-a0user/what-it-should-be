@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "patches": [
     {
       "name": "Anti Detector",
@@ -134,6 +134,33 @@
     {
       "name": "Login Fix Expertenmodus",
       "description": "Experimental login compatibility patch for a re-signed APK. Requires compatible microG-RE components. Enable only if registration/login fails.",
+      "default": false,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.whatsapp",
+          "name": "WhatsApp",
+          "description": null,
+          "apkFileType": "APK",
+          "appIconColor": "#25D366",
+          "signatures": null,
+          "formFactor": "MOBILE",
+          "targets": [
+            {
+              "version": "2.26.45.93",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Login Fix signature-spoofing permission",
+      "description": "Declares android.permission.FAKE_PACKAGE_SIGNATURE so microG-RE recognizes this app and serves it a spoofed Play Store signature. Required for Login Fix Expertenmodus's signature/cert patches to have any effect.",
       "default": false,
       "category": null,
       "compatiblePackages": [

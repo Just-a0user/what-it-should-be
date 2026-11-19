@@ -27,9 +27,9 @@ Click the button below, or manually add this repo url to Morphe Manager: https:/
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.1.1](https://github.com/Just-a0user/what-it-should-be/releases/tag/v1.1.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
+> **[v1.1.2](https://github.com/Just-a0user/what-it-should-be/releases/tag/v1.1.2)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;8 patches total
 <details open>
-<summary>📦 WhatsApp&nbsp;&nbsp;•&nbsp;&nbsp;7 patches</summary>
+<summary>📦 WhatsApp&nbsp;&nbsp;•&nbsp;&nbsp;8 patches</summary>
 <br>
 
 **Package name:** `com.whatsapp`
@@ -45,6 +45,7 @@ Click the button below, or manually add this repo url to Morphe Manager: https:/
 | [Anti Revoke Expertenmodus](#anti-revoke-expertenmodus) | Prevent others from deleting their messages or statuses. Companion to Keep Deleted Messages — that patch keeps text visible locally; this one stops the revoke ACK so the server cannot confirm delivery of the deletion. | • Block status revokes |
 | [Keep deleted messages](#keep-deleted-messages) | Show messages that were deleted for everyone. Client-side only; already-wiped history cannot be restored. | • Highlight deleted messages |
 | [Login Fix Expertenmodus](#login-fix-expertenmodus) | Experimental login compatibility patch for a re-signed APK. Requires compatible microG-RE components. Enable only if registration/login fails. |  |
+| [Login Fix signature-spoofing permission](#login-fix-signature-spoofing-permission) | Declares android.permission.FAKE_PACKAGE_SIGNATURE so microG-RE recognizes this app and serves it a spoofed Play Store signature. Required for Login Fix Expertenmodus's signature/cert patches to have any effect. |  |
 | [Remove Meta AI](#remove-meta-ai) | Hides Meta AI on the chats home screen (FAB / pill), related hub entry points, and common feature gates. Does not delete existing Meta AI chats. | • Aggressive hide |
 | [Usage data](#usage-data) | Limit diagnostic and analytics data WhatsApp sends. |  |
 | [View once media](#view-once-media) | Allow reopening and saving view once photos and videos. |  |
