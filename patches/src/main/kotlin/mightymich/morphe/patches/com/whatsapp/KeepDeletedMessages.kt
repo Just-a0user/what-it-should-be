@@ -69,6 +69,20 @@ val keepDeletedMessagesPatch = patch(
                     val impl = method.implementation ?: continue
                     val n = impl.instructions.count()
                     if (n < 3 || n > 200) continue
+
+                    // Name filter — only target revoke/delete processing methods.
+                    // Without this, pooled obfuscated string classes get gutted (startup crash).
+                    val mname = method.name.lowercase()
+                    val isRevokeMethod = mname.contains("revoke") ||
+                        mname.contains("delete") ||
+                        mname.contains("process") ||
+                        mname.contains("handle") ||
+                        mname.contains("apply") ||
+                        mname.contains("insert") ||
+                        mname.contains("pre") ||
+                        mname == "<clinit>"
+                    if (!isRevokeMethod) continue
+
                     try {
                         when (method.returnType) {
                             "V" -> {
