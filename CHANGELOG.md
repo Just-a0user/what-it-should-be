@@ -1,3 +1,9 @@
+## [1.0.5](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.4...v1.0.5) (2026-11-19)
+
+### 🐛 Bug Fixes
+
+* add name filter to KeepDeletedMessages revoke-processor loop ([c5ba218](https://github.com/Just-a0user/what-it-should-be/commit/c5ba21847b496492ac01c34b2466d61f3deab177))
+
 ## [1.0.4](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.3...v1.0.4) (2026-11-19)
 
 ### 🐛 Bug Fixes

@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-11-19T07:30:15",
-  "description": "## [1.0.4](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.3...v1.0.4) (2026-11-19)\n\n### 🐛 Bug Fixes\n\n* remove all-in-one WhatsAppMorphe patch, keep individual patches only ([a9f26de](https://github.com/Just-a0user/what-it-should-be/commit/a9f26de34e108ed8a85961a79ee74670b554cc95))",
-  "download_url": "https://github.com/Just-a0user/what-it-should-be/releases/download/v1.0.4/patches-1.0.4.mpp",
+  "created_at": "2026-11-19T07:51:56",
+  "description": "## [1.0.5](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.4...v1.0.5) (2026-11-19)\n\n### 🐛 Bug Fixes\n\n* add name filter to KeepDeletedMessages revoke-processor loop ([c5ba218](https://github.com/Just-a0user/what-it-should-be/commit/c5ba21847b496492ac01c34b2466d61f3deab177))",
+  "download_url": "https://github.com/Just-a0user/what-it-should-be/releases/download/v1.0.5/patches-1.0.5.mpp",
   "signature_download_url": "",
-  "version": "1.0.4"
+  "version": "1.0.5"
 }
