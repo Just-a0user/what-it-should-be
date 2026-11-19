@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-11-19T22:12:45",
-  "description": "## [1.1.0](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.5...v1.1.0) (2026-11-19)\n\n### ✨ New Features\n\n* port signature/GMS-redirect/cert-spoof login fixes from BOPBOP-glitch ([46025c2](https://github.com/Just-a0user/what-it-should-be/commit/46025c25bfae919dc041afe54ed1b44ed59941b8))",
-  "download_url": "https://github.com/Just-a0user/what-it-should-be/releases/download/v1.1.0/patches-1.1.0.mpp",
+  "created_at": "2026-11-19T22:31:56",
+  "description": "## [1.1.1](https://github.com/Just-a0user/what-it-should-be/compare/v1.1.0...v1.1.1) (2026-11-19)\n\n### 🐛 Bug Fixes\n\n* scope LoginFix vending redirect to Intent.setPackage calls only ([36e84ec](https://github.com/Just-a0user/what-it-should-be/commit/36e84ec82e1ffaf045367e0caee4c02b2f2b871a))",
+  "download_url": "https://github.com/Just-a0user/what-it-should-be/releases/download/v1.1.1/patches-1.1.1.mpp",
   "signature_download_url": "",
-  "version": "1.1.0"
+  "version": "1.1.1"
 }

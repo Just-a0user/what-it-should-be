@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/Just-a0user/what-it-should-be/compare/v1.1.0...v1.1.1) (2026-11-19)
+
+### 🐛 Bug Fixes
+
+* scope LoginFix vending redirect to Intent.setPackage calls only ([36e84ec](https://github.com/Just-a0user/what-it-should-be/commit/36e84ec82e1ffaf045367e0caee4c02b2f2b871a))
+
 ## [1.1.0](https://github.com/Just-a0user/what-it-should-be/compare/v1.0.5...v1.1.0) (2026-11-19)
 
 ### ✨ New Features
